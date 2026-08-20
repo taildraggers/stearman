@@ -68,6 +68,13 @@ _MARKETING_NAME_RULES = [
     (re.compile(r"\bmodel\s*75\b", re.IGNORECASE), "Model 75"),
 ]
 
+# Real listings often just say "Stearman" with no specific model code
+# stated in the title (unlike most other repos, a missing model here is
+# NOT disqualifying, by explicit request) - a bare "Boeing" is still not
+# enough on its own though, since that category also carries other
+# Boeing-branded/unrelated listings (see module docstring).
+_BRAND_RE = re.compile(r"\bstearman\b", re.IGNORECASE)
+
 # Only ads whose title matches one of these (case/hyphen/space-insensitive,
 # compared against a fully compacted - no spaces or hyphens - form of the
 # title) are kept. Deliberately does NOT include a bare "boeing" - that
@@ -116,6 +123,9 @@ def _extract_model(title: str) -> tuple[str, str] | None:
     for pattern, canonical in _MARKETING_NAME_RULES:
         if pattern.search(title):
             return MAKE, canonical
+
+    if _BRAND_RE.search(title):
+        return MAKE, ""
 
     return None
 
@@ -185,7 +195,10 @@ def _parse_detail_page(url: str, html: str) -> Listing | None:
     formatted_title = format_aircraft_title(title, text, _extract_model)
     if not formatted_title:
         return None
-    title = formatted_title
+    # A bare-"Stearman" match (no specific model code) leaves a trailing
+    # space from format_aircraft_title's "{make} {model}" join, since
+    # _extract_model returns an empty model string in that case.
+    title = formatted_title.rstrip()
 
     price = extract_price(text)
     location = extract_location(text)

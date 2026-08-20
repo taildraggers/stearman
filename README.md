@@ -37,13 +37,18 @@ title against a small allowlist of Stearman-specific terms (see
 
 Model codes (`PT-13`, `PT-17`, `PT-18`, `PT-27`, `N2S`/`N2S-#`) and coined
 names (`Kaydet`, `Model 75`) are trusted standalone - none of these
-collide with ordinary English usage or unrelated Boeing products. Titles
-that read as parts, accessories, services, or raffles are dropped. Every
-surviving listing's title is rewritten to a canonical **`YEAR STEARMAN
-MODEL`** form when the ad states a model year (e.g. `1943 Stearman
-PT-17`), or just **`STEARMAN MODEL`** when it doesn't - a missing year
-isn't disqualifying, since plenty of genuine ads simply don't state one in
-the title.
+collide with ordinary English usage or unrelated Boeing products. Unlike
+every other repo in this family, a missing model code is **not**
+disqualifying here either (by explicit request) - plenty of genuine
+listings just say "Stearman" with no specific variant stated, and a bare
+mention of the brand (not a bare "Boeing" - see above) is enough on its
+own to publish. Titles that read as parts, accessories, services, or
+raffles are still dropped regardless. Every surviving listing's title is
+rewritten to a canonical **`YEAR STEARMAN MODEL`** form when the ad states
+a model year and a specific model (e.g. `1943 Stearman PT-17`), just
+**`STEARMAN MODEL`** when only the model is missing a year, or plain
+**`Stearman`**/**`YEAR Stearman`** when no specific model is stated at
+all.
 
 **Gear note:** all PT-13/17/18/27 and N2S variants share the same fixed,
 non-retractable tailwheel gear by design - there is no tricycle-gear
